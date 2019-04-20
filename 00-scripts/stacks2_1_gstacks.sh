@@ -2,17 +2,17 @@
 # Launch gstacks to build loci from aligned data 
 # The input BAM file(s) must be sorted by coordinate
 
-# Test if user specified a number of CPUs
-if [[ -z "$NCPU" ]]
-then
-    NCPU=1
-fi
-
 # Global variables 
 NCPU=$1
 
 # User defined variables
 map="01-info_files/population_map_retained.txt"
+
+# Test if user specified a number of CPUs
+if [[ -z "$NCPU" ]]
+then
+    NCPU=1
+fi
 
 # Copy script as it was run
 TIMESTAMP=$(date +%Y-%m-%d_%Hh%Mm%Ss)
@@ -23,10 +23,15 @@ LOG_FOLDER="10-log_files"
 cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 
 
-## Options (comment out any options you do not want to use
+## Options (comment out any options you do not want to use)
+
+
 # General options:
+# Note: use either -I/-M (input folder & map) or -B (input file by name)
+# Note: currently works using input file
+#I="-I 04-all_samples" # input directory
+#M="-M $map"       # path to a population map giving the list of samples
 O="-O 05-stacks" # output directory
-M="-M $map"       # path to a population map giving the list of samples
 t="-t $NCPU"      # number of threads to use (default: 1)
 
 # Model options:
@@ -43,11 +48,14 @@ phasing_coocurrences_thr_range="--phasing-cooccurrences-thr-range 1,2" # range o
 #phasing_dont_prune_hets="--phasing-dont-prune-hets" # don't try to ignore dubious heterozygote genotypes during phasing
 
 # Launch gstacks for all the individuals
+echo "Starting gstacks with $NCPU cores"    
 id=1
 for file in 04-all_samples/*.bam
 do
     echo -e "\n\n##### Treating individual $id: $file\n\n"
-    gstacks -B $file $O $M $t \
+    gstacks -B $file \
+        $I $M \
+        $O $t \
         $model $var_alpha $gt_alpha \
         $min_mapq $max_clipped $max_insert_len \
         $details $phasing_coocurrences_thr_range $phasing_dont_prune_hets 
