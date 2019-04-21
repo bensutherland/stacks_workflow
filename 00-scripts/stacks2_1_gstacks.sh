@@ -29,8 +29,8 @@ cp $SCRIPT $LOG_FOLDER/"$TIMESTAMP"_"$NAME"
 # General options:
 # Note: use either -I/-M (input folder & map) or -B (input file by name)
 # Note: currently works using input file
-#I="-I 04-all_samples" # input directory
-#M="-M $map"       # path to a population map giving the list of samples
+I="-I 04-all_samples" # input directory
+M="-M $map"       # path to a population map giving the list of samples
 O="-O 05-stacks" # output directory
 t="-t $NCPU"      # number of threads to use (default: 1)
 
@@ -49,16 +49,8 @@ phasing_coocurrences_thr_range="--phasing-cooccurrences-thr-range 1,2" # range o
 
 # Launch gstacks for all the individuals
 echo "Starting gstacks with $NCPU cores"    
-id=1
-for file in 04-all_samples/*.bam
-do
-    echo -e "\n\n##### Treating individual $id: $file\n\n"
-    gstacks -B $file \
-        $I $M \
-        $O $t \
+gstacks $I $M $O $t \
         $model $var_alpha $gt_alpha \
         $min_mapq $max_clipped $max_insert_len \
-        $details $phasing_coocurrences_thr_range $phasing_dont_prune_hets 
-    id=$(echo $id + 1 | bc)
-done 2>&1 | tee 10-log_files/"$TIMESTAMP"_stacks2_gstacks.log
-
+        $details $phasing_coocurrences_thr_range $phasing_dont_prune_hets \
+            2>&1 | tee 10-log_files/"$TIMESTAMP"_stacks2_gstacks.log
