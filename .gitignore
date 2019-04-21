@@ -5,6 +5,7 @@
 10-log_files/*
 99-documentation/_build/_sources/*
 99-papers/*
+catalog.calls
 GSNAP*.sh
 PSTACKS*.sh
 gsnaptemp.list.*
@@ -23,7 +24,9 @@ temp.list.*
 *.bak
 *.bam
 *.bwt
+*.details.gz
 *.doctree
+*.fa.gz
 *.fas
 *.fasta
 *.fq
@@ -32,6 +35,7 @@ temp.list.*
 *.jpg
 *.js
 *.log
+*.log.distribs
 *.numseq
 *.odt
 *.pac
@@ -44,6 +48,7 @@ temp.list.*
 *.tsv
 *.tsv.gz
 *.ttf
+*.txt
 *.vcf
 *BWA_temp*
 *barcode*
