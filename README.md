@@ -78,8 +78,7 @@ To read a html version of this file, go to the
 on GitHub.
 
 ## Installing stacks_workflow
-
-### Download and install the most recent version of this workflow
+Download and install the most recent version of this workflow.      
 For the rest of the project, use the extracted or cloned folder as your working
 directory. **All the commands in this manual are launched from that
 directory.**
@@ -87,7 +86,7 @@ directory.**
 ### Download and install [STACKS](http://creskolab.uoregon.edu/stacks/)
 
 #### Install programs
-Install the following programs from their websites:      
+Install the following programs from each source website:      
 - Cutadapt
 - Stacks (v2)
 - FastQC
@@ -275,7 +274,9 @@ options.
 
 ## Run the STACKS programs
 
-### Without a reference genome
+Only the version with a reference genome has been updated to stacks v2 thus far.     
+
+### Without a reference genome (still uses stacks v1 currently)    
 
 ```bash
 ./00-scripts/stacks_1a_ustacks.sh
@@ -298,17 +299,13 @@ Visualize the distribution of log likelihoods in
 
 ### With a reference genome
 
-**Warning!** The documentation and scripts used with a reference genome have
-not been updated in a long time. We believe they should not be used at the
-moment.
-
+Update the gstacks script below with your own map, currently acts on
+`01-info_files/population_map_retained.txt`       
 
 ```bash
 ./00-scripts/bwa_mem_align_reads.sh
-./00-scripts/stacks_1a_pstacks.sh
-./00-scripts/stacks_2_cstacks.sh
-./00-scripts/stacks_3_sstacks.sh
-./00-scripts/stacks_4_populations.sh
+./00-scripts/stacks2_1_gstacks.sh
+<populations module here>
 ```
 
 ## Filtering the results
