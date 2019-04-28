@@ -18,4 +18,4 @@ cp $INFO_FILES_FOLDER/$POP_MAP $LOG_FOLDER/"$TIMESTAMP"_"$POP_MAP"
 # Comment out the options required to run your analysis
 
 # Current command
-populations --in-path 05-stacks --popmap 01-info_files/population_map_retained.txt --out-path 07-filtered_vcfs -r 0.7 --min-populations 15 --min-maf 0.01 --vcf --fstats --smooth --hwe -t 8
+populations --in-path 05-stacks --popmap 01-info_files/population_map_retained.txt --out-path 07-filtered_vcfs -r 0.7 --min-populations 15 --min-maf 0.01 --vcf --fstats --smooth --hwe -t 8 --plink
